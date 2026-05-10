@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 
 export const Header: React.FC = () => {
-    const [currentPath, setCurrentPath] = useState("#");
+    const [_currentPath, _setCurrentPath] = useState("#");
 
     const menuItems = [
         { label: "Beranda", href: "/", icon: <Home size={18} />},
