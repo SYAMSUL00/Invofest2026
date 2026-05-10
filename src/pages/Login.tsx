@@ -4,12 +4,16 @@ import { z } from "zod";
 import { InputText } from "../components/ui/InputText";
 import { PasswordInput } from "../components/ui/PasswordInput";
 
+type LoginForm = {
+    email: string;
+    password: string;
+};
+
 const schema = z.object({
-    email: z.string().email("Format email tidak valid"),
-    password: z.string().min(6, "Password minimal 6 karakter"),
+    email: z.string().min(1, "Format email tidak valid"),
+    password: z.string().min(8, "Password minimal 8 karakter"),
 });
 
-type LoginForm = z.infer<typeof schema>;
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
@@ -45,6 +49,14 @@ export default function Login() {
                     Login
                 </button>
             </form>
+
+            <p className="text-center text-sm text-gray-600 mt-4">
+                Belum punya akun?{" "}
+                <a href="/register" className="text-red-900 hover:underline">
+                    Daftar di sini
+                </a>
+            </p>
+
         </div>
     );
 }

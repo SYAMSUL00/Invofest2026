@@ -1,7 +1,7 @@
 import React from "react";
 
 interface BaseInputProps {
-    label: string;
+    label?: string;
     name: string;
     register: any;
     error?: string;
@@ -10,7 +10,6 @@ interface BaseInputProps {
 }
 
 export const InputText: React.FC<BaseInputProps> = ({
-    label,
     name,
     register,
     error,
@@ -19,14 +18,17 @@ export const InputText: React.FC<BaseInputProps> = ({
 }) => {
     return (
         <div className="flex flex-col gap-1">
-            <label className="font-medium">{label}</label>
             <input
                 type={type}
                 placeholder={placeholder}
                 {...register(name)}
-                className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={`border rounded px-3 py-2 outline-none transition-all ${
+                    error
+                        ? "border-red-500 bg-red-50 text-red-900 placeholder:text-red-300 focus:ring-1 focus:ring-red-500" 
+                        : "border-gray-400 bg-white text-gray-800 focus:ring-1 focus:ring-gray-400"
+                }`}
             />
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
     );
 };

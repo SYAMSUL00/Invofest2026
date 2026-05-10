@@ -59,6 +59,14 @@ export default function RegisterForm() {
                     Daftar
                 </button>
             </form>
+
+            <p className="text-center text-sm text-gray-600 mt-4">
+                Sudah punya akun?{" "}
+                <a href="/login" className="text-red-900 hover:underline">
+                    Masuk di sini
+                </a>
+            </p>
+
         </div>
     );
 }
