@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { InputText } from "../components/ui/InputText";
+import FormInput from "../components/FormInput";
 import { PasswordInput } from "../components/ui/PasswordInput";
 
 type LoginForm = {
@@ -10,10 +10,9 @@ type LoginForm = {
 };
 
 const schema = z.object({
-    email: z.string().min(1, "Format email tidak valid"),
+    email: z.string().email("Format email tidak valid").min(1, "Email wajib diisi"),
     password: z.string().min(8, "Password minimal 8 karakter"),
 });
-
 
 export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
@@ -25,38 +24,43 @@ export default function Login() {
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
-            <h1 className="text-2xl font-bold text-center mb-1">Login</h1>
-            <hr className="mb-6 border-gray-200" />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+            <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
+                <h1 className="text-2xl font-bold text-center mb-1 text-gray-800">Login</h1>
+                <hr className="mb-6 border-gray-200" />
 
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                <InputText
-                    label="Email"
-                    name="email"
-                    register={register}
-                    error={errors.email?.message}
-                />
-                <PasswordInput
-                    label="Password"
-                    name="password"
-                    register={register}
-                    error={errors.password?.message}
-                />
-                <button
-                    type="submit"
-                    className="w-full bg-red-900 hover:bg-red-800 text-white font-semibold py-3 rounded-lg mt-2"
-                >
-                    Login
-                </button>
-            </form>
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+                    <FormInput
+                        text="Email"
+                        name="email"
+                        register={register}
+                        error={errors.email?.message}
+                        type="email"
+                        placeholder="Masukkan email anda"
+                    />
 
-            <p className="text-center text-sm text-gray-600 mt-4">
-                Belum punya akun?{" "}
-                <a href="/register" className="text-red-900 hover:underline">
-                    Daftar di sini
-                </a>
-            </p>
+                    <PasswordInput
+                        label="Password"
+                        name="password"
+                        register={register}
+                        error={errors.password?.message}
+                    />
 
+                    <button
+                        type="submit"
+                        className="w-full bg-red-900 hover:bg-red-800 text-white font-semibold py-3 rounded-lg mt-2 transition-colors"
+                    >
+                        Login
+                    </button>
+                </form>
+
+                <p className="text-center text-sm text-gray-600 mt-6">
+                    Belum punya akun?{" "}
+                    <a href="/register" className="text-red-900 font-medium hover:underline">
+                        Daftar di sini
+                    </a>
+                </p>
+            </div>
         </div>
     );
 }

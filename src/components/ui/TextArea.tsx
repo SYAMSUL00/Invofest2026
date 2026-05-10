@@ -8,24 +8,25 @@ interface TextAreaProps {
     placeholder?: string;
 }
 
-export const TextArea: React.FC<TextAreaProps>=({
-    label,
-    name,
-    register,
-    error,
-    placeholder,
-})=>{
-    return(
+export const TextArea: React.FC<TextAreaProps> = ({ label, name, register, error, placeholder }) => {
+    return (
         <div className="flex flex-col gap-1">
-            <label>{label}</label>
-
+            <label className={`text-sm font-semibold transition-colors ${
+                error ? "text-red-500" : "text-gray-700"
+            }`}>
+                {label}
+            </label>
             <textarea
-            {...register(name)}
-            placeholder={placeholder}
-            className="border rounded px-3 py-2 min-h[100px]"
+                {...register(name)}
+                placeholder={placeholder}
+                rows={4}
+                className={`w-full p-3 border rounded-lg outline-none transition-all resize-none ${
+                    error
+                        ? "border-red-500 bg-red-50 text-black placeholder:text-red-300 focus:ring-1 focus:ring-red-500"
+                        : "border-gray-800 bg-white text-black focus:ring-1 focus:ring-gray-400"
+                }`}
             />
-
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {error && <p className="text-red-500 text-xs mt-1 font-medium">{error}</p>}
         </div>
     );
 };
