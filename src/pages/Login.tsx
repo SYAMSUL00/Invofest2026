@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import FormInput from "../components/FormInput";
 import { PasswordInput } from "../components/ui/PasswordInput";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";   
 
 type LoginForm = {
     email: string;
@@ -19,7 +21,17 @@ export default function Login() {
         resolver: zodResolver(schema),
     });
 
+    const navigate = useNavigate();
+    const login = useAuthStore((state) => state.login);
+
     const onSubmit = (data: LoginForm) => {
+        if(data.email == "admin@gmail.com" && data.password == "admin123"){
+            alert("Login berhasil!");
+            login(data.email);
+            navigate("/dashboard");
+        } else {
+            alert("Login gagal!");
+        }
         console.log(data);
     };
 

@@ -11,6 +11,12 @@ import AuthLayout from "./layouts/AuthLayout";
 import CreateCategory from "./pages/dashboard/Categories/CreateCategory";
 import CreateEvent from "./pages/dashboard/events/CreateEvent";
 import CreateSpeaker from "./pages/dashboard/speakers/CreateSpeaker";
+import DashboardIndex from "./pages/dashboard/DashboardIndex";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import DashboardLayout from "./layouts/DashboardLayout";
+import CategoryIndex from "./pages/dashboard/Categories/CategoryIndex";
+import SpeakerIndex from "./pages/dashboard/speakers/SpeakerIndex";
+import EventIndex from "./pages/dashboard/events/EventIndex";
 
 function App() {
     return (
@@ -23,7 +29,6 @@ function App() {
                     <Route path="/seminar" element={<Seminar />} />
                     <Route path="/talkshow" element={<Talkshow />} />
                     <Route path="/workshop" element={<Workshop />} />
-
                     <Route path="/category/create" element={<CreateCategory />} />
                     <Route path="/event/create" element={<CreateEvent />} />
                     <Route path="/speaker/create" element={<CreateSpeaker />} />
@@ -34,8 +39,30 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
             </Route>
+                 {/* Dashboard */}
+                 <Route element={<ProtectedRoute />}>
+                    <Route path="/dashboard" element={<DashboardLayout />}>
+                        <Route index element={<DashboardIndex />} />
 
-                {/* Dashboard */}
+                        <Route path="/dashboard/category" element={<CategoryIndex />} />
+                        <Route
+                        path="/dashboard/category/create"
+                        element={<CreateCategory />}
+                        />
+
+                        <Route path="/dashboard/event" element={<EventIndex />} />
+                        <Route
+                            path="/dashboard/event/create"
+                            element={<CreateEvent />}
+                        />
+
+                        <Route path="/dashboard/speaker" element={<SpeakerIndex />} />
+                        <Route
+                            path="/dashboard/speaker/create"
+                            element={<CreateSpeaker />}
+                        />
+                    </Route>
+                </Route>
             </Routes>
         </BrowserRouter>
     );
